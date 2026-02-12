@@ -1,0 +1,13 @@
+services:
+  wii-rl:
+    build: .
+    shm_size: "1g"
+    volumes:
+      - ./game:/workspace/game
+      - ./MarioKartSaveStates:/workspace/MarioKartSaveStates
+      - ./models:/workspace/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: ["gpu"]

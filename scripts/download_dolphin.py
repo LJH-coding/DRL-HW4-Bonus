@@ -10,21 +10,33 @@ DOLPHIN_MAC_X86_URL = "https://github.com/unexploredtest/dolphin/releases/downlo
 ZIP_NAME = "Dolphin.zip"
 TAR_NAME = "Dolphin.tar.gz"
 
+def _download_and_extract(url: str, extract_to: Path):
+    url_lower = url.lower()
+    if url_lower.endswith(".zip"):
+        download_file(url, ZIP_NAME)
+        extract_zip(ZIP_NAME, extract_to)
+        os.remove(ZIP_NAME)
+        return
+    if url_lower.endswith(".tar.gz") or url_lower.endswith(".tgz"):
+        download_file(url, TAR_NAME)
+        extract_tar(TAR_NAME, extract_to)
+        os.remove(TAR_NAME)
+        return
+
+    raise RuntimeError(
+        "Unsupported archive format for Dolphin. "
+        "Use .zip, .tar.gz, or .tgz."
+    )
+
 def main():
     current_directory = Path.cwd()
 
     if(platform.system() == "Windows"):
-        download_file(DOLPHIN_WIN_URL, ZIP_NAME)
-        extract_zip(ZIP_NAME, current_directory)
-        os.remove(ZIP_NAME)
+        _download_and_extract(DOLPHIN_WIN_URL, current_directory)
     elif(platform.system() == "Darwin" and platform.machine() == "arm64"):
-        download_file(DOLPHIN_MAC_ARM_URL, TAR_NAME)
-        extract_tar(TAR_NAME, current_directory)
-        os.remove(TAR_NAME)
+        _download_and_extract(DOLPHIN_MAC_ARM_URL, current_directory)
     elif(platform.system() == "Darwin" and platform.machine() == "x86_64"):
-        download_file(DOLPHIN_MAC_X86_URL, TAR_NAME)
-        extract_tar(TAR_NAME, current_directory)
-        os.remove(TAR_NAME)
+        _download_and_extract(DOLPHIN_MAC_X86_URL, current_directory)
     else:
         raise RuntimeError(f"The operating system '{platform.system()}' is not supported.")
 

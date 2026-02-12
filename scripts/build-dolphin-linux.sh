@@ -22,7 +22,13 @@ mkdir -p Build
 cd Build
 # Option "CMAKE_POLICY_VERSION_MINIMUM=3.5" is used for compability with newer CMakes
 # Option "USE_SYSTEM_FMT=OFF" is used for compability for Arch Linux
-cmake .. -DLINUX_LOCAL_DEV=true -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DUSE_SYSTEM_FMT=OFF
+cmake .. \
+  -DLINUX_LOCAL_DEV=true \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+  -DUSE_SYSTEM_FMT=OFF \
+  -DPython3_EXECUTABLE=/usr/bin/python3.12 \
+  -DPython3_INCLUDE_DIR=/usr/include/python3.12 \
+  -DPython3_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.12.so
 make -j $(nproc)
 cp -r ../Data/Sys/ Binaries/
 
