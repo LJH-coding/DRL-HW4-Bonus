@@ -1,4 +1,4 @@
-# Wii-RL Installation Guide
+# DRL-HW4-Bonus Installation Guide
 
 This README focuses on installation and setup across Windows, Linux, and macOS.
 
