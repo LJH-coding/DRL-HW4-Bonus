@@ -17,10 +17,10 @@ This README focuses on installation and setup across Windows, Linux, and macOS.
 
 ### macOS
 - **Python 3.12+**
-- For the prebuilt Dolphin download, install **Python 3.13.5** via Homebrew:
+- For the prebuilt Dolphin download, install **Python 3.13** via Homebrew:
   ```sh
   brew update
-  brew install python@3.13.5
+  brew install python@3.13
   ```
   If you use a virtual env, match the Homebrew Python version.
 
@@ -28,8 +28,8 @@ This README focuses on installation and setup across Windows, Linux, and macOS.
 
 ## 2) Clone the Repository
 ```sh
-git clone https://github.com/VIPTankz/Wii-RL.git
-cd Wii-RL
+git clone https://github.com/LJH-coding/DRL-HW4-Bonus.git
+cd DRL-HW4-Bonus
 ```
 
 ---
@@ -95,7 +95,7 @@ docker run --rm -it --shm-size=1g \
   -v "$(pwd)/game:/workspace/game" \
   -v "$(pwd)/MarioKartSaveStates:/workspace/MarioKartSaveStates" \
   -v "$(pwd)/models:/workspace/models" \
-  wii-rl python BTR_test.py --model_path /workspace/models/model.pt
+  wii-rl python evaluate.py --model_path /workspace/models/model.pt
 ```
 
 Note: The Docker image uses GPU-enabled PyTorch by default. Use the CPU-only
@@ -141,15 +141,7 @@ bash scripts/run_headless_linux.sh
 
 To run a custom command:
 ```sh
-bash scripts/run_headless_linux.sh python BTR_test.py --model_path /path/to/model.pt
+bash scripts/run_headless_linux.sh python training.py
 ```
 
 ---
-
-## 10) Quick Test
-```sh
-python BTR_test.py --model_path /path/to/model.pt
-```
-
-If you need a pretrained model, download it from:
-`https://github.com/VIPTankz/Wii-RL/releases/tag/model`
